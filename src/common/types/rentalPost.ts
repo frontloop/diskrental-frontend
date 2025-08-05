@@ -1,5 +1,5 @@
 export interface RentalPost {
-    customerNumber: number
+    userId: number
     exemplarIdentificationNumber: string
     rentalDuration: number
 }

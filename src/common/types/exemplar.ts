@@ -1,5 +1,5 @@
 import type { Item } from "./item"
-import type { RentalStore } from "./rentalStore"
+import type { ItemStore } from "./itemStore"
 
 export interface Exemplar {
     id: string
@@ -7,5 +7,5 @@ export interface Exemplar {
     item: Item
     condition: Number
     inventoriedDate: string
-    store: RentalStore
+    store: ItemStore
 }
