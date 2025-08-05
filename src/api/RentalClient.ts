@@ -14,9 +14,13 @@ export class RentalClient {
         return this.handleResponse(await RestClient.put<ReturnExemplar>(this.endpoint + '/return', data))
     }
 
-    async getOpenRentalByCustomer(userId: number): Promise<Rental[] | null> {
-            return this.handleResponse(await RestClient.get<Rental[]>(this.endpoint + '/' + userId + '/open'))
-        }
+    async getOpenRentalUserId(userId: number): Promise<Rental[] | null> {
+        return this.handleResponse(await RestClient.get<Rental[]>(this.endpoint + '/' + userId + '/open'))
+    }
+
+    async getOpenRental(): Promise<Rental[] | null> {
+        return this.handleResponse(await RestClient.get<Rental[]>(this.endpoint + '/open'))
+    }
 
     async handleResponse(response: any): Promise<any | null> {
         if (response.ok()) {

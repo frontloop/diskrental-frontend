@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import TaskList from './components/TaskList.vue'
-import TaskEditor from './components/TaskEditor.vue'
+import RentalList from './components/RentalList.vue'
 import { onMounted } from 'vue'
 
-import { useTaskStore } from '@/stores/task';
+import { useRentalStore } from '@/stores/rental';
 
-const taskStore = useTaskStore()
+const rentalStore = useRentalStore()
 
 onMounted(() => {
-  taskStore.getAll()
+  console.log("------>>> rentalStore.getOpenRental()")
+  rentalStore.getOpenRental()
 })
 
 </script>
 
 <template>
   <div class="wrap">
-    <TaskList />
+    <RentalList />
   </div>
 </template>
 

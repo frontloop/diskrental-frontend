@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import type { Rental } from '@/common/types/rental'
 import { RentalClient } from '@/api/RentalClient'
-import { RentalPost } from '@/common/types/rentalPost'
-import { ReturnExemplar } from '@/common/types/returnExemplar'
+
+import type { Rental } from '@/common/types/rental'
+import type { RentalPost } from '@/common/types/rentalPost'
+import type { ReturnExemplar } from '@/common/types/returnExemplar'
 
 export const useRentalStore = defineStore('rental', () => {
 
@@ -41,10 +42,22 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
+    async function getOpenRental() {
+        try {
+        const response = await rentalClient.getOpenRental()
+        if (response) {
+            rentalList.value = response;
+        }
+        } catch (error) {
+            return false
+        }
+    }
+
     return {
         rentalForm,
         returnForm,
         rentalList,
+        getOpenRental,
         rentExemplar,
         returnExemplar
     }
