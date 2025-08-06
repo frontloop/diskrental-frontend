@@ -1,21 +1,28 @@
 <script setup lang="ts">
-import RentalList from './components/RentalList.vue'
-import { onMounted } from 'vue'
+  import { useRentalStore } from '@/stores/rental'
+  import type { ItemStore } from './common/types/itemStore';
+  import { onMounted } from 'vue'
 
-import { useRentalStore } from '@/stores/rental';
+  const rentalStore = useRentalStore()
 
-const rentalStore = useRentalStore()
-
-onMounted(() => {
-  console.log("------>>> rentalStore.getOpenRental()")
-  rentalStore.getOpenRental()
+  onMounted(() => {
+    rentalStore.getAllStores()
 })
 
+const selectHandler = (event) => {
+  rentalStore.currentStoreNumber = event.target.value
+}
 </script>
 
 <template>
-  <div class="wrap">
-    <RentalList />
+  <div>
+    Filiale
+    <select name="itemStores" id="itemStores" @change="selectHandler($event)">
+      <option v-for="itemStore in rentalStore.storeList" :value="itemStore.storeNumber" :key="itemStore.storeNumber">{{ itemStore.name }}</option>
+    </select>
+  </div>
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 

@@ -1,38 +1,28 @@
 <template>
     <p class="wrap">
         <div>
-            <div class="headLabel">{{ rental.exemplar.item.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
+            <div class="headLabel">{{ item.title }}</div>
             <p class="details">
-                <div class="createDate">{{ displayDate(rental.rentStartDate, true) }}</div>
-                <div class="createDate">{{ displayDate(rental.plannedReturnDate, false) }}</div>
+                <div class="createDate">{{ item.type }}</div>
             </p>
             <div class="actionButtons">
-                <img src="/return-button.png" @click="returnExemplar(rental.exemplar.identificationNumber)" class="returnButton">
+                <img src="/edit.png" @click="returnExemplar" class="editButton">
             </div>
         </div>
     </p>
 </template>
 
 <script setup lang="ts">
-import { type Rental } from '@/common/types/rental'
-import { ReturnExemplar } from '@/common/types/returnExemplar';
+import type { Item } from '@/common/types/item'
 import { useRentalStore } from '@/stores/rental';
 import { ref } from 'vue';
 
 const rentalStore = useRentalStore()
 
-const props = defineProps<{ rental: Rental }>()
+const props = defineProps<{ item: Item }>()
 
-const returnExemplar = (exemplarIdentificationNumber) => {
-    rentalStore.returnExemplar(exemplarIdentificationNumber);
-}
-
-const displayDate = (created: string, showTime: boolean) => {
-    const date = new Date(created).toLocaleDateString();
-    const time = new Date(created).toLocaleTimeString();
-    let returnString: string = date;
-    if (showTime) returnString += ' um ' + time
-    return returnString;
+const returnExemplar = () => {
+    rentalStore.returnExemplar();
 }
 
 </script>
@@ -85,7 +75,7 @@ const displayDate = (created: string, showTime: boolean) => {
     float: left;
 }
 
-.returnButton {
+.editButton {
     margin-top: -3px;
     cursor: pointer;
     height: 45px;
