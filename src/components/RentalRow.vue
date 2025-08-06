@@ -15,7 +15,6 @@
 
 <script setup lang="ts">
 import { type Rental } from '@/common/types/rental'
-import { ReturnExemplar } from '@/common/types/returnExemplar';
 import { useRentalStore } from '@/stores/rental';
 import { ref } from 'vue';
 
@@ -23,7 +22,7 @@ const rentalStore = useRentalStore()
 
 const props = defineProps<{ rental: Rental }>()
 
-const returnExemplar = (exemplarIdentificationNumber) => {
+const returnExemplar = (exemplarIdentificationNumber: string) => {
     rentalStore.returnExemplar(exemplarIdentificationNumber);
 }
 

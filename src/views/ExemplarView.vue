@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import ItemList from '@/components/ItemList.vue'
-import { useRentalStore } from '@/stores/rental';
+import ExemplarList from '@/components/ExemplarList.vue'
+import { useRentalStore } from '@/stores/rental'
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const rentalStore = useRentalStore()
 
-onMounted(() => {
-  rentalStore.getItems()
-})
 </script>
 
 <template>
-    <ItemList />
+    <ExemplarList />
 </template>

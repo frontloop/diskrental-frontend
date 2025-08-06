@@ -1,6 +1,7 @@
 import { RestClient } from '../api/BaseClient'
 import type { Rental } from '@/common/types/rental'
 import type { Item } from '@/common/types/item'
+import type { Exemplar } from '@/common/types/exemplar'
 import type { RentalPost } from '@/common/types/rentalPost'
 import type { ReturnExemplar } from '@/common/types/returnExemplar'
 import type { ItemStore } from '@/common/types/itemStore'
@@ -15,6 +16,10 @@ export class RentalClient {
     async returnExemplar(data: ReturnExemplar): Promise<Rental | null> {
         console.log(data.exemplarIdentificationNumber, data.storeNumber)
         return this.handleResponse(await RestClient.put<ReturnExemplar>(this.endpoint + '/return', data))
+    }
+
+    async getAvailableExemplars(itemId: string): Promise<Exemplar[] | null> {
+        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + itemId + '/available'))
     }
 
     async getOpenRentalUserId(userId: number): Promise<Rental[] | null> {

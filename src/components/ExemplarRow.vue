@@ -1,30 +1,23 @@
 <template>
-    <div class="wrap">
-        <div @click="goToAvailableExemplarList()">
-            <div class="headLabel">{{ item.title }}</div>
+    <p class="wrap">
+        <div>
+            <div class="headLabel">{{ exemplar.identificationNumber }}</div>
+            <div class="headLabel">{{ exemplar.condition }}</div>
             <p class="details">
-                <div class="createDate">{{ item.type }}</div>
+                <div class="createDate">{{ exemplar.inventoriedDate }}</div>
             </p>
         </div>
-    </div>
+    </p>
 </template>
 
 <script setup lang="ts">
-import type { Item } from '@/common/types/item'
+import type { Exemplar } from '@/common/types/exemplar'
 import { useRentalStore } from '@/stores/rental';
 import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-
-const router = useRouter();
 
 const rentalStore = useRentalStore()
 
-const props = defineProps<{ item: Item }>()
-
-function goToAvailableExemplarList() {
-    rentalStore.getAvailableExemplars(props.item.id)
-    router.push({ path: '/exemplar' })
-}
+const props = defineProps<{ exemplar: Exemplar }>()
 
 </script>
 
@@ -36,7 +29,6 @@ function goToAvailableExemplarList() {
     border-radius: 8px;
     width: 500px;
     height: 110px;
-    margin-top: 5px;
 }
 
 .deleteDialog {

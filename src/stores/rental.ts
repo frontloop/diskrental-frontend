@@ -8,6 +8,7 @@ import type { Item } from '@/common/types/item'
 import type { RentalPost } from '@/common/types/rentalPost'
 import type { ReturnExemplar } from '@/common/types/returnExemplar'
 import type { ItemStore } from '@/common/types/itemStore'
+import type { Exemplar } from '@/common/types/exemplar'
 
 export const useRentalStore = defineStore('rental', () => {
 
@@ -23,6 +24,7 @@ export const useRentalStore = defineStore('rental', () => {
     const returnForm = ref<ReturnExemplar>(getEmptyReturnForm())
     const rentalList = ref<Array<Rental>>([])
     const itemList = ref<Array<Item>>([])
+    const exemplarList = ref<Array<Exemplar>>([])
     const storeList = ref<Array<ItemStore>>([])
     const rentalClient: RentalClient = new RentalClient()
     const filterByUserId = ref<string>('')
@@ -52,7 +54,7 @@ export const useRentalStore = defineStore('rental', () => {
 
     const returnExemplar = async (exemplarIdentificationNumber: string) => {
         try {
-            const response = await rentalClient.returnExemplar({ exemplarIdentificationNumber: exemplarIdentificationNumber, storeNumber: currentStoreNumber.value })
+            const response = await rentalClient.returnExemplar({ exemplarIdentificationNumber: exemplarIdentificationNumber, storeNumber: currentStoreNumber.value == undefined ? 0 : currentStoreNumber.value })
             if (!response || response == null) throw new Error('Etwas ist schief gelaufen')
                 getOpenRentalByCustomer()
                 return true
@@ -99,11 +101,23 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
+    async function getAvailableExemplars(itemId: string) {
+        try {
+        const response = await rentalClient.getAvailableExemplars(itemId)
+        if (response) {
+            exemplarList.value = response;
+        }
+        } catch (error) {
+            return false
+        }
+    }
+
     return {
         rentalForm,
         returnForm,
         rentalList,
         itemList,
+        exemplarList,
         filterByUserId,
         storeList,
         currentStoreNumber,
@@ -111,6 +125,7 @@ export const useRentalStore = defineStore('rental', () => {
         getOpenRental,
         rentExemplar,
         returnExemplar,
+        getAvailableExemplars,
         getItems,
         getAllStores
     }
