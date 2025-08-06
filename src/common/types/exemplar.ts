@@ -8,4 +8,5 @@ export interface Exemplar {
     condition: Number
     inventoriedDate: string
     store: ItemStore
+    available: boolean
 }
