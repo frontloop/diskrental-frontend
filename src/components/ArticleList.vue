@@ -1,14 +1,14 @@
 <template>
   <div class="taskListContainer">
     <div class="taskList">
-        <ItemRow v-for="item in rentalStore.itemList" :item="item" />
+        <ArticleRow v-for="article in rentalStore.articleList" :article="article" />
     </div>
   </div>
   </template>
 
 <script setup lang="ts">
 import { useRentalStore } from '@/stores/rental'
-import ItemRow from './ItemRow.vue';
+import ArticleRow from './ArticleRow.vue';
 
 const rentalStore = useRentalStore()
 

@@ -4,10 +4,10 @@ import { ref } from 'vue'
 import { RentalClient } from '@/api/RentalClient'
 
 import type { Rental } from '@/common/types/rental'
-import type { Item } from '@/common/types/item'
+import type { Article } from '@/common/types/article'
 import type { RentalPost } from '@/common/types/rentalPost'
 import type { ReturnExemplar } from '@/common/types/returnExemplar'
-import type { ItemStore } from '@/common/types/itemStore'
+import type { ArticleStore } from '@/common/types/articleStore'
 import type { Exemplar } from '@/common/types/exemplar'
 
 export const useRentalStore = defineStore('rental', () => {
@@ -23,16 +23,16 @@ export const useRentalStore = defineStore('rental', () => {
     const rentalForm = ref<RentalPost>(getEmptyRentalForm())
     const returnForm = ref<ReturnExemplar>(getEmptyReturnForm())
     const rentalList = ref<Array<Rental>>([])
-    const itemList = ref<Array<Item>>([])
+    const articleList = ref<Array<Article>>([])
     const exemplarList = ref<Array<Exemplar>>([])
-    const storeList = ref<Array<ItemStore>>([])
+    const storeList = ref<Array<ArticleStore>>([])
     const rentalClient: RentalClient = new RentalClient()
     const filterByUserId = ref<string>('')
     const currentStoreNumber = ref<number>()
 
     const getAllStores = async () => {
         try {
-            const response = await rentalClient.getAllItemStores()
+            const response = await rentalClient.getAllArticleStores()
             if (response) {
                 storeList.value = response
                 currentStoreNumber.value = response[0].storeNumber
@@ -90,20 +90,20 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
-    async function getItems() {
+    async function getArticles() {
         try {
-        const response = await rentalClient.getItems()
+        const response = await rentalClient.getArticles()
         if (response) {
-            itemList.value = response;
+            articleList.value = response;
         }
         } catch (error) {
             return false
         }
     }
 
-    async function getAvailableExemplars(itemId: string) {
+    async function getAvailableExemplars(articleId: string) {
         try {
-        const response = await rentalClient.getAvailableExemplars(itemId)
+        const response = await rentalClient.getAvailableExemplars(articleId)
         if (response) {
             exemplarList.value = response;
         }
@@ -116,7 +116,7 @@ export const useRentalStore = defineStore('rental', () => {
         rentalForm,
         returnForm,
         rentalList,
-        itemList,
+        articleList: articleList,
         exemplarList,
         filterByUserId,
         storeList,
@@ -126,7 +126,7 @@ export const useRentalStore = defineStore('rental', () => {
         rentExemplar,
         returnExemplar,
         getAvailableExemplars,
-        getItems,
+        getArticles: getArticles,
         getAllStores
     }
 })

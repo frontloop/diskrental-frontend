@@ -1,10 +1,10 @@
 import { RestClient } from '../api/BaseClient'
 import type { Rental } from '@/common/types/rental'
-import type { Item } from '@/common/types/item'
+import type { Article } from '@/common/types/article'
 import type { Exemplar } from '@/common/types/exemplar'
 import type { RentalPost } from '@/common/types/rentalPost'
 import type { ReturnExemplar } from '@/common/types/returnExemplar'
-import type { ItemStore } from '@/common/types/itemStore'
+import type { ArticleStore } from '@/common/types/articleStore'
 
 export class RentalClient {
     private endpoint = '/rental'
@@ -18,8 +18,8 @@ export class RentalClient {
         return this.handleResponse(await RestClient.put<ReturnExemplar>(this.endpoint + '/return', data))
     }
 
-    async getAvailableExemplars(itemId: string): Promise<Exemplar[] | null> {
-        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + itemId + '/available'))
+    async getAvailableExemplars(articleId: string): Promise<Exemplar[] | null> {
+        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + articleId + '/available'))
     }
 
     async getOpenRentalUserId(userId: number): Promise<Rental[] | null> {
@@ -34,12 +34,12 @@ export class RentalClient {
         return this.handleResponse(await RestClient.get<Rental[]>(this.endpoint + '/'+ userId + '/open'))
     }
 
-    async getItems(): Promise<Item[] | null> {
-        return this.handleResponse(await RestClient.get<Item[]>(this.endpoint + '/items'))
+    async getArticles(): Promise<Article[] | null> {
+        return this.handleResponse(await RestClient.get<Article[]>(this.endpoint + '/articles'))
     }
 
-    async getAllItemStores(): Promise<ItemStore[] | null> {
-        return this.handleResponse(await RestClient.get<ItemStore[]>(this.endpoint + '/stores'
+    async getAllArticleStores(): Promise<ArticleStore[] | null> {
+        return this.handleResponse(await RestClient.get<ArticleStore[]>(this.endpoint + '/stores'
         ))
     }
 

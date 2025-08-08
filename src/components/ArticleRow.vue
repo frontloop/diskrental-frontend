@@ -1,24 +1,24 @@
 <template>
     <div class="wrap">
         <div @click="goToAvailableExemplarList()">
-            <div class="headLabel">{{ item.title }}</div>
+            <div class="headLabel">{{ article.title }}</div>
             <p class="details">
-                <div class="createDate">{{ item.type }}</div>
+                <div class="createDate">{{ article.type }}</div>
             </p>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Item } from '@/common/types/item'
+import type { Article } from '@/common/types/article'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const props = defineProps<{ item: Item }>()
+const props = defineProps<{ article: Article }>()
 
 function goToAvailableExemplarList() {
-    router.push({ path: '/available-exemplars/' + props.item.id })
+    router.push({ path: '/available-exemplars/' + props.article.id })
 }
 
 </script>

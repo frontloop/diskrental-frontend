@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useRentalStore } from '@/stores/rental'
-  import type { ItemStore } from './common/types/itemStore';
+  import type { ArticleStore } from './common/types/articleStore';
   import { onMounted } from 'vue'
 
   const rentalStore = useRentalStore()

@@ -1,7 +1,7 @@
 <template>
     <p class="wrap">
         <div>
-            <div class="headLabel">{{ rental.exemplar.item.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
+            <div class="headLabel">{{ rental.exemplar.article.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
             <p class="details">
                 <div class="createDate">{{ displayDate(rental.rentStartDate, true) }}</div>
             </p>
@@ -14,8 +14,7 @@
 
 <script setup lang="ts">
 import { type Rental } from '@/common/types/rental'
-import { useRentalStore } from '@/stores/rental';
-import { ref } from 'vue';
+import { useRentalStore } from '@/stores/rental'
 
 const rentalStore = useRentalStore()
 

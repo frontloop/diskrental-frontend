@@ -1,6 +1,6 @@
 import type { Address } from "./address"
 
-export interface ItemStore {
+export interface ArticleStore {
     id: string
     storeNumber: number
     name: string

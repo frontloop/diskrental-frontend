@@ -9,7 +9,7 @@ const route = useRoute();
 const rentalStore = useRentalStore()
 
 onMounted(() => {
-  rentalStore.getAvailableExemplars(route.params.itemId.toString())
+  rentalStore.getAvailableExemplars(route.params.articleId.toString())
 })
 
 

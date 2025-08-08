@@ -1,6 +1,6 @@
 import type { Customer } from "./customer"
 import type { Exemplar } from "./exemplar"
-import type { ItemStore } from "./itemStore"
+import type { ArticleStore } from "./articleStore"
 
 export interface Rental {
     id: string,
@@ -9,6 +9,6 @@ export interface Rental {
     rentStartDate: string
     returnDate: string
     closed: boolean
-    originStore: ItemStore
-    returnStore: ItemStore
+    originStore: ArticleStore
+    returnStore: ArticleStore
 }

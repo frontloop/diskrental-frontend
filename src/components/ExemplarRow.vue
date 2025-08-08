@@ -1,5 +1,5 @@
 <template>
-    <p class="wrap">
+    <div class="wrap">
         <div>
             <div class="headLabel">{{ exemplar.identificationNumber }}</div>
             <div class="headLabel">{{ exemplar.condition }}</div>
@@ -7,7 +7,7 @@
                 <div class="createDate">{{ exemplar.inventoriedDate }}</div>
             </p>
         </div>
-    </p>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -27,6 +27,7 @@ const props = defineProps<{ exemplar: Exemplar }>()
     padding-left: 10px;
     padding-top: 10px;
     border-radius: 8px;
+    margin-top: 5px;
     width: 500px;
     height: 110px;
 }

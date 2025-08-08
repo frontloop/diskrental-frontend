@@ -1,12 +1,12 @@
-import type { Item } from "./item"
-import type { ItemStore } from "./itemStore"
+import type { Article } from "./article"
+import type { ArticleStore } from "./articleStore"
 
 export interface Exemplar {
     id: string
     identificationNumber: string
-    item: Item
+    article: Article
     condition: Number
     inventoriedDate: string
-    store: ItemStore
+    store: ArticleStore
     available: boolean
 }
