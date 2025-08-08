@@ -4,7 +4,6 @@
             <div class="headLabel">{{ rental.exemplar.item.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
             <p class="details">
                 <div class="createDate">{{ displayDate(rental.rentStartDate, true) }}</div>
-                <div class="createDate">{{ displayDate(rental.plannedReturnDate, false) }}</div>
             </p>
             <div class="actionButtons">
                 <img src="/return-button.png" @click="returnExemplar(rental.exemplar.identificationNumber)" class="returnButton">

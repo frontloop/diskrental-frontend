@@ -11,19 +11,14 @@
 
 <script setup lang="ts">
 import type { Item } from '@/common/types/item'
-import { useRentalStore } from '@/stores/rental';
-import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
-const rentalStore = useRentalStore()
 
 const props = defineProps<{ item: Item }>()
 
 function goToAvailableExemplarList() {
-    rentalStore.getAvailableExemplars(props.item.id)
-    router.push({ path: '/exemplar' })
+    router.push({ path: '/available-exemplars/' + props.item.id })
 }
 
 </script>

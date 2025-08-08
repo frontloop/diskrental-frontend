@@ -7,7 +7,6 @@ export interface Rental {
     exemplar: Exemplar
     customer: Customer
     rentStartDate: string
-    plannedReturnDate: string
     returnDate: string
     closed: boolean
     originStore: ItemStore
