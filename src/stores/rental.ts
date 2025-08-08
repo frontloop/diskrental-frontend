@@ -3,25 +3,14 @@ import { ref } from 'vue'
 
 import { RentalClient } from '@/api/RentalClient'
 
+import type { Customer } from '@/common/types/customer'
 import type { Rental } from '@/common/types/rental'
 import type { Article } from '@/common/types/article'
-import type { RentalPost } from '@/common/types/rentalPost'
-import type { ReturnExemplar } from '@/common/types/returnExemplar'
 import type { ArticleStore } from '@/common/types/articleStore'
 import type { Exemplar } from '@/common/types/exemplar'
 
 export const useRentalStore = defineStore('rental', () => {
-
-    const getEmptyRentalForm = () => {
-            return {userId: -1, exemplarIdentificationNumber: '', rentalDuration: -1}
-        }
-
-    const getEmptyReturnForm = () => {
-            return {exemplarIdentificationNumber: '', storeNumber: -1}
-        }
     
-    const rentalForm = ref<RentalPost>(getEmptyRentalForm())
-    const returnForm = ref<ReturnExemplar>(getEmptyReturnForm())
     const rentalList = ref<Array<Rental>>([])
     const articleList = ref<Array<Article>>([])
     const exemplarList = ref<Array<Exemplar>>([])
@@ -29,6 +18,7 @@ export const useRentalStore = defineStore('rental', () => {
     const rentalClient: RentalClient = new RentalClient()
     const filterByUserId = ref<string>('')
     const currentStoreNumber = ref<number>()
+    const currentCustomer = ref<Customer>()
 
     const getAllStores = async () => {
         try {
@@ -42,9 +32,9 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
-    const rentExemplar = async () => {
+    const rentExemplar = async (articleIdentificationNumber: string) => {
         try {
-            const response = await rentalClient.rentExemplar(rentalForm.value)
+            const response = await rentalClient.rentExemplar(articleIdentificationNumber)
             if (!response || response == null) throw new Error('Etwas ist schief gelaufen')
                 return true
         } catch (error) {
@@ -54,7 +44,11 @@ export const useRentalStore = defineStore('rental', () => {
 
     const returnExemplar = async (exemplarIdentificationNumber: string) => {
         try {
-            const response = await rentalClient.returnExemplar({ exemplarIdentificationNumber: exemplarIdentificationNumber, storeNumber: currentStoreNumber.value == undefined ? 0 : currentStoreNumber.value })
+            const response = await rentalClient.returnExemplar(
+                { 
+                    exemplarIdentificationNumber: exemplarIdentificationNumber,
+                    storeNumber: currentStoreNumber.value == undefined ? 0 : currentStoreNumber.value
+                })
             if (!response || response == null) throw new Error('Etwas ist schief gelaufen')
                 getOpenRentalByCustomer()
                 return true
@@ -101,7 +95,7 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
-    async function getAvailableExemplars(articleId: string) {
+    const getAvailableExemplars = async (articleId: string) => {
         try {
         const response = await rentalClient.getAvailableExemplars(articleId)
         if (response) {
@@ -113,14 +107,13 @@ export const useRentalStore = defineStore('rental', () => {
     }
 
     return {
-        rentalForm,
-        returnForm,
         rentalList,
-        articleList: articleList,
+        articleList,
         exemplarList,
         filterByUserId,
         storeList,
         currentStoreNumber,
+        currentCustomer,
         getOpenRentalByCustomer,
         getOpenRental,
         rentExemplar,

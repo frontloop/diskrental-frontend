@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import ArticleList from '@/components/ArticleList.vue'
 import { useRentalStore } from '@/stores/rental';
+import { ref } from 'vue'
 
 const rentalStore = useRentalStore()
 

@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div @click="goToAvailableExemplarList()">
+        <div @click="goToArticleDetails()">
             <div class="headLabel">{{ article.title }}</div>
             <p class="details">
                 <div class="createDate">{{ article.type }}</div>
@@ -12,13 +12,14 @@
 <script setup lang="ts">
 import type { Article } from '@/common/types/article'
 import { useRouter } from 'vue-router';
+import { useRentalStore } from '@/stores/rental'
 
 const router = useRouter();
 
 const props = defineProps<{ article: Article }>()
 
-function goToAvailableExemplarList() {
-    router.push({ path: '/available-exemplars/' + props.article.id })
+function goToArticleDetails() {
+    router.push({ path: '/article/' + props.article.identificationNumber })
 }
 
 </script>

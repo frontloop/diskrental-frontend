@@ -1,5 +1,5 @@
 <template>
-    <p class="wrap">
+    <div class="wrap">
         <div>
             <div class="headLabel">{{ rental.exemplar.article.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
             <p class="details">
@@ -9,7 +9,7 @@
                 <img src="/return-button.png" @click="returnExemplar(rental.exemplar.identificationNumber)" class="returnButton">
             </div>
         </div>
-    </p>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -40,6 +40,7 @@ const displayDate = (created: string, showTime: boolean) => {
     padding-left: 10px;
     padding-top: 10px;
     border-radius: 8px;
+    margin-top: 5px;
     width: 500px;
     height: 110px;
 }
