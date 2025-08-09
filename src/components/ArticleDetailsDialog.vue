@@ -1,57 +1,38 @@
 <template>
     <div class="wrap">
-        <p class="fieldLabel">{{ article?.title }}</p>
-        <p class="fieldLabel">{{ available }}</p>
-        <p class="buttons">
+        <div>
+        <p class="field title">{{ rentalStore.selectedArticleDetails?.title }}</p>
+        <p class="field" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
+        <p class="field" v-else>Momentan sind alle Exemplare vergeben</p>
+        <p v-if="rentalStore.selectedArticleAvailable" class="center">
             <button @click="rent">Leihen</button>
         </p>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { onMounted } from 'vue';
-import { RentalClient } from '@/api/RentalClient';
-import type { Article } from '@/common/types/article';
-import { ref } from 'vue';
+import { useRentalStore } from '@/stores/rental'
 
-const rentalClient: RentalClient = new RentalClient()
+const rentalStore = useRentalStore()
 
+const router = useRouter();
 const route = useRoute();
 
-const article = ref<Article>()
-const available = ref<boolean>()
+const identificationNumber = route.params.identificationNumber.toString();
 
 onMounted(() => {
-
-    getArticle();
+    rentalStore.getArticleDetails(identificationNumber);
 })
 
-const getArticle = async () => {
-    const identificationNumber = route.params.identificationNumber.toString();
 
-    try {
-        const response = await rentalClient.getArticle(identificationNumber);
-
-        if (response) {
-            article.value = response;
-        }
-    } catch (error) {
-        return false
-    }
-
-    try {
-        const response = await rentalClient.getAvailableExemplars(identificationNumber)
-    if (response) {
-        available.value = response.length > 0;
-    }
-    } catch (error) {
-        return false
-    }
-}
 
 const rent = async () => {
-    //rentalStore.rentExemplar();
+    await rentalStore.rentExemplar(identificationNumber);
+    await rentalStore.getOpenRentalByCustomer();
+    router.push({ path: '/return' })
 }
 </script>
 
@@ -67,27 +48,18 @@ const rent = async () => {
     color: rgb(51, 53, 55);
 }
 
-.fieldLabel {
+.center {
+  margin-left: 40%;
+}
+
+.field {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: #595a5c;
-    margin-bottom: 2px;
 }
 
-label {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #595a5c;
-}
-
-.buttons {
-  display: flex;
-  margin-left: 25%;
-  margin-top: 30px;
-  gap: 40px;
-}
-
-.name-input {
-    width: 400px;
+.title {
+    font-size: large;
 }
 
 button {

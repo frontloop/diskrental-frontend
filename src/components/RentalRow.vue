@@ -1,9 +1,9 @@
 <template>
     <div class="wrap">
         <div>
-            <div class="headLabel">{{ rental.exemplar.article.title }} >>> Kunde: {{ rental.customer.firstName }} {{ rental.customer.lastName }} ({{ rental.customer.userId }})</div>
+            <div class="headLabel">{{ rental.exemplar.article.title }}</div>
             <p class="details">
-                <div class="createDate">{{ displayDate(rental.rentStartDate, true) }}</div>
+                <div class="createDate">Geliehen am: {{ displayDate(rental.rentStartDate, true) }}</div>
             </p>
             <div class="actionButtons">
                 <img src="/return-button.png" @click="returnExemplar(rental.exemplar.identificationNumber)" class="returnButton">

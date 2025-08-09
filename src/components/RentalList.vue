@@ -1,6 +1,5 @@
 <template>
   <div class="taskListContainer">
-    <input class="center-block" type="text" v-model="rentalStore.filterByUserId" @input="rentalStore.getOpenRentalByCustomer"></input>
     <div class="taskList">
         <RentalRow v-for="rental in rentalStore.rentalList" :rental="rental" />
     </div>
@@ -10,8 +9,15 @@
 <script setup lang="ts">
 import { useRentalStore } from '@/stores/rental'
 import RentalRow from './RentalRow.vue';
+import { onMounted } from 'vue';
 
 const rentalStore = useRentalStore()
+
+onMounted(() => {
+    if (rentalStore.currentCustomer) {
+        rentalStore.getOpenRentalByCustomer()
+    }
+})
 
 </script>
 
@@ -25,6 +31,12 @@ const rentalStore = useRentalStore()
         border-right: 5px dotted rgba(255, 255, 255, 0.6);
     }
 
+    .field {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #595a5c;
+}
+
     .center-block {
         display: block;
         margin:auto;
@@ -33,22 +45,5 @@ const rentalStore = useRentalStore()
     .taskList {
         width: 520px;
         margin: auto;
-    }
-
-    .editor {
-        position: fixed;
-        margin-left: 100px;
-        top: 250px;
-        width: 500px;
-        filter: drop-shadow(2px -2px 14px #404040);
-    }
-
-    .editorBackground {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(222, 228, 232, 0.6);
     }
 </style>

@@ -12,5 +12,13 @@ onMounted(() => {
 </script>
 
 <template>
-    <ArticleList />
+    <ArticleList class="center" />
 </template>
+
+<style>
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+</style>

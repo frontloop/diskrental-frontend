@@ -18,7 +18,7 @@ const router = useRouter();
 
 const props = defineProps<{ article: Article }>()
 
-function goToArticleDetails() {
+async function goToArticleDetails() {
     router.push({ path: '/article/' + props.article.identificationNumber })
 }
 

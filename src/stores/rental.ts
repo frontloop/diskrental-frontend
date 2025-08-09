@@ -6,6 +6,7 @@ import { RentalClient } from '@/api/RentalClient'
 import type { Customer } from '@/common/types/customer'
 import type { Rental } from '@/common/types/rental'
 import type { Article } from '@/common/types/article'
+
 import type { ArticleStore } from '@/common/types/articleStore'
 import type { Exemplar } from '@/common/types/exemplar'
 
@@ -19,6 +20,9 @@ export const useRentalStore = defineStore('rental', () => {
     const filterByUserId = ref<string>('')
     const currentStoreNumber = ref<number>()
     const currentCustomer = ref<Customer>()
+    const customerList = ref<Customer[]>()
+    const selectedArticleDetails = ref<Article>()
+    const selectedArticleAvailable = ref<boolean>()
 
     const getAllStores = async () => {
         try {
@@ -30,6 +34,23 @@ export const useRentalStore = defineStore('rental', () => {
         } catch (error) {
             return false
         }
+    }
+
+    const getAllCustomers = async () => {
+        try {
+            const response = await rentalClient.getAllCustomers()
+            if (response) {
+                customerList.value = response
+                currentCustomer.value = customerList.value[0]
+                await loginAsCustomer(customerList.value[0].userId)
+            }
+        } catch (error) {
+            return false
+        }
+    }
+
+    const loginAsCustomer = async (userId: number) => {
+        await rentalClient.loginAsCustomer(userId)
     }
 
     const rentExemplar = async (articleIdentificationNumber: string) => {
@@ -50,7 +71,9 @@ export const useRentalStore = defineStore('rental', () => {
                     storeNumber: currentStoreNumber.value == undefined ? 0 : currentStoreNumber.value
                 })
             if (!response || response == null) throw new Error('Etwas ist schief gelaufen')
-                getOpenRentalByCustomer()
+                if (currentCustomer.value) {
+                    getOpenRentalByCustomer()
+                }
                 return true
         } catch (error) {
             return false
@@ -69,18 +92,18 @@ export const useRentalStore = defineStore('rental', () => {
     }
 
     async function getOpenRentalByCustomer() {
-        if (filterByUserId.value && filterByUserId.value.length >= 3) {
+        if (currentCustomer.value) {
             try {
-            const response = await rentalClient.getOpenRentalByCustomer(Number(filterByUserId.value))
+                const response = await rentalClient.getOpenRentalUserId(currentCustomer.value.userId)
             if (response) {
                 rentalList.value = response;
             }
             } catch (error) {
                 return false
             }
-        } else if (filterByUserId.value.length == 0) {
-
-            getOpenRental();
+        } else {
+            await getAllCustomers();
+            getOpenRentalByCustomer();
         }
     }
 
@@ -95,14 +118,42 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
-    const getAvailableExemplars = async (articleId: string) => {
-        try {
-        const response = await rentalClient.getAvailableExemplars(articleId)
+    const getArticleDetails = async (identificationNumber: string) => {
+
+    try {
+        const response = await rentalClient.getArticle(identificationNumber);
+
         if (response) {
-            exemplarList.value = response;
+            selectedArticleDetails.value = response;
+        }
+    } catch (error) {
+        return false
+    }
+
+    if (currentStoreNumber.value) {
+        try {
+            const response = await rentalClient.getAvailableExemplars(identificationNumber, currentStoreNumber.value)
+        if (response) {
+            selectedArticleAvailable.value = response.length > 0;
         }
         } catch (error) {
             return false
+        }
+    } else {
+        selectedArticleAvailable.value = false;
+    }
+}
+
+    const getAvailableExemplars = async (articleIdentificationNumber: string) => {
+        if (currentStoreNumber.value) {
+            try {
+            const response = await rentalClient.getAvailableExemplars(articleIdentificationNumber, currentStoreNumber.value)
+            if (response) {
+                exemplarList.value = response;
+            }
+            } catch (error) {
+                return false
+            }
         }
     }
 
@@ -114,12 +165,18 @@ export const useRentalStore = defineStore('rental', () => {
         storeList,
         currentStoreNumber,
         currentCustomer,
+        customerList,
+        selectedArticleDetails,
+        selectedArticleAvailable,
         getOpenRentalByCustomer,
         getOpenRental,
         rentExemplar,
         returnExemplar,
         getAvailableExemplars,
         getArticles: getArticles,
-        getAllStores
+        getAllStores,
+        getAllCustomers,
+        loginAsCustomer,
+        getArticleDetails
     }
 })

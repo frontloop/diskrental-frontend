@@ -6,11 +6,21 @@ import { useRentalStore } from '@/stores/rental';
 
 const rentalStore = useRentalStore()
 
-onMounted(() => {
-  rentalStore.getOpenRental()
+onMounted(async () => {
+  await rentalStore.getOpenRentalByCustomer()
 })
 </script>
 
 <template>
-    <RentalList />
+    <RentalList class="center" />
 </template>
+
+<style>
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+</style>
