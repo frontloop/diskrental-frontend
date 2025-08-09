@@ -1,6 +1,6 @@
 <template>
-  <div class="taskListContainer">
-    <div class="taskList">
+  <div class="articleListContainer">
+    <div class="articleList">
         <RentalRow v-for="rental in rentalStore.rentalList" :rental="rental" />
     </div>
   </div>
@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-    .taskListContainer {
+    .articleListContainer {
         width: 750px;
         background-color: rgba(182, 194, 204, 0.9);
         padding-top: 20px;
@@ -42,7 +42,7 @@ onMounted(() => {
         margin:auto;
     }
 
-    .taskList {
+    .articleList {
         width: 520px;
         margin: auto;
     }

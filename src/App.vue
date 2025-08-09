@@ -42,7 +42,7 @@ const storeSelectHandler = (event: any) => {
     </select>
   </div>
   <div style="margin-left: 38%;">
-    <button @click="router.push({ path: '/rental' })">Artikel Auswählen</button> <button @click="router.push({ path: '/return' })">Geliehene Artikel/Rückgabe</button>
+    <button @click="router.push({ path: '/' })">Artikel Auswählen</button> <button @click="router.push({ path: '/return' })">Geliehene Artikel/Rückgabe</button>
   </div>
     <div>
       <router-view></router-view>

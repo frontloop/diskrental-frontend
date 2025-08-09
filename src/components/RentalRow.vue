@@ -45,10 +45,6 @@ const displayDate = (created: string, showTime: boolean) => {
     height: 110px;
 }
 
-.deleteDialog {
-    margin-left: 35%;
-    padding-top: 10px;
-}
 
 .headLabel {
     font-family: Arial, Helvetica, sans-serif;
@@ -66,23 +62,6 @@ const displayDate = (created: string, showTime: boolean) => {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.doneIcon {
-    height: 22px;
-    width: 22px;
-}
-
-.progressIcon {
-    margin-top: -6px;
-    margin-left: -6px;
-    height: 28px;
-    width: 28px;
-}
-
-.actionButtons {
-    margin-left: 30px;
-    float: left;
-}
-
 .returnButton {
     margin-top: -3px;
     cursor: pointer;
@@ -90,32 +69,8 @@ const displayDate = (created: string, showTime: boolean) => {
     width: 45px;
 }
 
-.deleteButton {
-    padding-bottom: 5px;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
-}
-
 .createDate {
     background-color: #5f6d82;
-}
-
-.priorityField {
-    text-align: center;
-    width: 70px;
-}
-
-.priorityLow {
-    background-color: #9fa79f;
-}
-
-.priorityNormal {
-    background-color: #6b84b1;
-}
-
-.priorityUrgent {
-    background-color: #b47869;
 }
 
 button {

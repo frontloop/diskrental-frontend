@@ -7,11 +7,10 @@
         <p v-if="rentalStore.selectedArticleAvailable" class="center">
             <button @click="rent">Leihen</button>
         </p>
-
-        <p class="center">
-            <button @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</button>
-        </p>
         </div>
+        <p style="margin-left: 30%;">
+            Dummy nicht für Kunden: <a class="buttonSmall" @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</a>
+        </p>
     </div>
 </template>
 
@@ -46,6 +45,7 @@ const rent = async () => {
     border-radius: 15px;
     border: 2px solid #ececec;
     padding: 20px;
+    padding-bottom: 0px;
 }
 
 .wrap div {
@@ -84,6 +84,19 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  cursor: pointer;
+}
+
+.buttonSmall {
+  background-color: #c53713; /* Green */
+  border: none;
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
   cursor: pointer;
 }
 </style>
