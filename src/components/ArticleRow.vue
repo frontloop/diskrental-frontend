@@ -1,6 +1,6 @@
 <template>
-    <div class="wrap">
-        <div @click="goToArticleDetails()">
+    <div class="wrap" style="cursor: pointer;" @click="goToArticleDetails()">
+        <div>
             <div class="headLabel">{{ article.title }}</div>
             <p class="details">
                 <div class="createDate">{{ article.type }}</div>
@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import type { Article } from '@/common/types/article'
 import { useRouter } from 'vue-router';
-import { useRentalStore } from '@/stores/rental'
 
 const router = useRouter();
 

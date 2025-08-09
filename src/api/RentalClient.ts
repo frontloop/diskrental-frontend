@@ -25,8 +25,12 @@ export class RentalClient {
         return this.handleResponse(await RestClient.put<ReturnExemplar>(this.endpoint + '/return', data))
     }
 
-    async getAvailableExemplars(identificationNumber: string, articleStoreNumber: number): Promise<Exemplar[] | null> {
-        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + articleStoreNumber + '/' + identificationNumber + '/available'))
+    async getAvailableExemplars(articleIdentificationNumber: string, articleStoreNumber: number): Promise<Exemplar[] | null> {
+        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + articleStoreNumber + '/' + articleIdentificationNumber + '/available'))
+    }
+
+    async getAllExemplars(articleIdentificationNumber: string): Promise<Exemplar[] | null> {
+        return this.handleResponse(await RestClient.get<Exemplar[]>(this.endpoint + '/exemplars/' + articleIdentificationNumber))
     }
 
     async getOpenRentalUserId(userId: number): Promise<Rental[] | null> {

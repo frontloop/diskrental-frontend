@@ -7,6 +7,6 @@ export interface Exemplar {
     article: Article
     condition: Number
     inventoriedDate: string
-    store: ArticleStore
+    currentStore: ArticleStore
     available: boolean
 }

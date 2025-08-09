@@ -157,6 +157,19 @@ export const useRentalStore = defineStore('rental', () => {
         }
     }
 
+    const getAllExemplars = async (articleIdentificationNumber: string) => {
+        if (currentStoreNumber.value) {
+            try {
+            const response = await rentalClient.getAllExemplars(articleIdentificationNumber)
+            if (response) {
+                exemplarList.value = response;
+            }
+            } catch (error) {
+                return false
+            }
+        }
+    }
+
     return {
         rentalList,
         articleList,
@@ -173,6 +186,7 @@ export const useRentalStore = defineStore('rental', () => {
         rentExemplar,
         returnExemplar,
         getAvailableExemplars,
+        getAllExemplars,
         getArticles: getArticles,
         getAllStores,
         getAllCustomers,

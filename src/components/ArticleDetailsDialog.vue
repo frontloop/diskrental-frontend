@@ -2,10 +2,14 @@
     <div class="wrap">
         <div>
         <p class="field title">{{ rentalStore.selectedArticleDetails?.title }}</p>
-        <p class="field" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
-        <p class="field" v-else>Momentan sind alle Exemplare vergeben</p>
+        <p class="field available" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
+        <p class="field notAvailable" v-else>Momentan sind alle Exemplare vergeben</p>
         <p v-if="rentalStore.selectedArticleAvailable" class="center">
             <button @click="rent">Leihen</button>
+        </p>
+
+        <p class="center">
+            <button @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</button>
         </p>
         </div>
     </div>
@@ -60,6 +64,14 @@ const rent = async () => {
 
 .title {
     font-size: large;
+}
+
+.available {
+    color: #2ba22f;
+}
+
+.notAvailable {
+    color: #87371c;
 }
 
 button {
