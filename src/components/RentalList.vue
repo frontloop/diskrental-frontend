@@ -1,6 +1,6 @@
 <template>
-  <div class="articleListContainer">
-    <div class="articleList">
+  <div class="itemListContainer">
+    <div class="itemList">
         <RentalRow v-for="rental in rentalStore.rentalList" :rental="rental" />
     </div>
   </div>
@@ -22,15 +22,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-    .articleListContainer {
-        width: 750px;
-        background-color: rgba(182, 194, 204, 0.9);
-        padding-top: 20px;
-        padding-bottom: 20%;
-        border-left: 5px dotted rgba(255, 255, 255, 0.6);
-        border-right: 5px dotted rgba(255, 255, 255, 0.6);
-    }
-
     .field {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -42,7 +33,7 @@ onMounted(() => {
         margin:auto;
     }
 
-    .articleList {
+    .itemList {
         width: 520px;
         margin: auto;
     }

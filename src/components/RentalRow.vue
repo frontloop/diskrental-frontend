@@ -35,16 +35,6 @@ const displayDate = (created: string, showTime: boolean) => {
 </script>
 
 <style scoped>
-.wrap {
-    background-color: rgba(249, 251, 255, 0.9);
-    padding-left: 10px;
-    padding-top: 10px;
-    border-radius: 8px;
-    margin-top: 5px;
-    width: 500px;
-    height: 110px;
-}
-
 
 .headLabel {
     font-family: Arial, Helvetica, sans-serif;

@@ -6,3 +6,27 @@
 body {
   background-color: #9ba9b4;
 }
+
+.itemListContainer {
+  width: 750px;
+  background-color: rgba(182, 194, 204, 0.9);
+  padding-top: 20px;
+  padding-bottom: 20%;
+  border-left: 5px dotted rgba(255, 255, 255, 0.6);
+  border-right: 5px dotted rgba(255, 255, 255, 0.6);
+}
+
+.itemList {
+    width: 520px;
+    margin: auto;
+  }
+
+.wrap {
+  background-color: rgba(249, 251, 255, 0.9);
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 8px;
+  margin-top: 5px;
+  width: 500px;
+  height: 110px;
+}
