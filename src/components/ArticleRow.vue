@@ -12,12 +12,16 @@
 <script setup lang="ts">
 import type { Article } from '@/common/types/article'
 import { useRouter } from 'vue-router';
+import { useRentalStore } from '@/stores/rental'
+
+const rentalStore = useRentalStore()
 
 const router = useRouter();
 
 const props = defineProps<{ article: Article }>()
 
 async function goToArticleDetails() {
+    rentalStore.articleDetailsLoading = true
     router.push({ path: '/article/' + props.article.identificationNumber })
 }
 
