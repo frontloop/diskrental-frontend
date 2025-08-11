@@ -13,7 +13,7 @@
                 Dummy nicht für Kunden: <a class="buttonSmall" @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</a>
             </p>
         </div>
-        <div v-else>Artikeldetails werden abgerufen ...</div>
+        <div v-else><p style="margin-top: 50px; margin-bottom: 50px;">Artikeldetails werden abgerufen ...</p></div>
     </div>
 </template>
 
