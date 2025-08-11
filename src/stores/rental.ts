@@ -23,6 +23,7 @@ export const useRentalStore = defineStore('rental', () => {
     const customerList = ref<Customer[]>()
     const selectedArticleDetails = ref<Article>()
     const selectedArticleAvailable = ref<boolean>()
+    const articleDetailsLoading = ref<boolean>(false)
 
     const getAllStores = async () => {
         try {
@@ -119,14 +120,16 @@ export const useRentalStore = defineStore('rental', () => {
     }
 
     const getArticleDetails = async (identificationNumber: string) => {
-
+        articleDetailsLoading.value = true
     try {
         const response = await rentalClient.getArticle(identificationNumber);
 
         if (response) {
             selectedArticleDetails.value = response;
         }
+        articleDetailsLoading.value = false
     } catch (error) {
+        articleDetailsLoading.value = false
         return false
     }
 
@@ -181,6 +184,7 @@ export const useRentalStore = defineStore('rental', () => {
         customerList,
         selectedArticleDetails,
         selectedArticleAvailable,
+        articleDetailsLoading,
         getOpenRentalByCustomer,
         getOpenRental,
         rentExemplar,

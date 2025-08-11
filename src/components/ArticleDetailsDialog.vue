@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div>
+        <div v-if="!rentalStore.articleDetailsLoading">
         <p class="field title">{{ rentalStore.selectedArticleDetails?.title }}</p>
         <p class="field available" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
         <p class="field notAvailable" v-else>Momentan sind alle Exemplare vergeben</p>
@@ -27,6 +27,7 @@ const route = useRoute();
 const identificationNumber = route.params.identificationNumber.toString();
 
 onMounted(() => {
+    rentalStore.articleDetailsLoading;
     rentalStore.getArticleDetails(identificationNumber);
 })
 
