@@ -1,16 +1,19 @@
 <template>
-    <div class="wrap" v-if="!rentalStore.articleDetailsLoading">
-        <div>
-        <p class="field title">{{ rentalStore.selectedArticleDetails?.title }}</p>
-        <p class="field available" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
-        <p class="field notAvailable" v-else>Momentan sind alle Exemplare vergeben</p>
-        <p v-if="rentalStore.selectedArticleAvailable" class="center">
-            <button @click="rent">Leihen</button>
-        </p>
+    <div class="wrap">
+        <div v-if="!rentalStore.articleDetailsLoading">
+            <div>
+            <p class="field title">{{ rentalStore.selectedArticleDetails?.title }}</p>
+            <p class="field available" v-if="rentalStore.selectedArticleAvailable">Exemplar ist verfügbar!</p>
+            <p class="field notAvailable" v-else>Momentan sind alle Exemplare vergeben</p>
+            <p v-if="rentalStore.selectedArticleAvailable" class="center">
+                <button @click="rent">Leihen</button>
+            </p>
+            </div>
+            <p style="margin-left: 30%;">
+                Dummy nicht für Kunden: <a class="buttonSmall" @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</a>
+            </p>
         </div>
-        <p style="margin-left: 30%;">
-            Dummy nicht für Kunden: <a class="buttonSmall" @click="router.push({path: '/available-exemplars/' + identificationNumber})">Exemplare verwalten</a>
-        </p>
+        <div v-else>Artikeldetails werden abgerufen ...</div>
     </div>
 </template>
 
