@@ -127,7 +127,6 @@ export const useRentalStore = defineStore('rental', () => {
         if (response) {
             selectedArticleDetails.value = response;
         }
-        articleDetailsLoading.value = false
     } catch (error) {
         articleDetailsLoading.value = false
         return false
@@ -136,14 +135,17 @@ export const useRentalStore = defineStore('rental', () => {
     if (currentStoreNumber.value) {
         try {
             const response = await rentalClient.getAvailableExemplars(identificationNumber, currentStoreNumber.value)
-        if (response) {
-            selectedArticleAvailable.value = response.length > 0;
-        }
+            if (response) {
+                selectedArticleAvailable.value = response.length > 0;
+            }
+        articleDetailsLoading.value = false
         } catch (error) {
+            articleDetailsLoading.value = false
             return false
         }
     } else {
         selectedArticleAvailable.value = false;
+        articleDetailsLoading.value = false
     }
 }
 

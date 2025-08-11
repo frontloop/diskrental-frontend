@@ -21,7 +21,6 @@ const router = useRouter();
 const props = defineProps<{ article: Article }>()
 
 async function goToArticleDetails() {
-    rentalStore.articleDetailsLoading = true
     router.push({ path: '/article/' + props.article.identificationNumber })
 }
 
